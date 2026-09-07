@@ -1,0 +1,7 @@
+interface:
+  display_name: "Financial Statement Analyzer"
+  short_description: "分析财报、盈利质量与股东现金流，建立叙事估值的财务基准"
+  default_prompt: "使用 $investment-financial-statement-analysis 审阅这家公司的财报，并生成包含正常化 C0 现金流桥的 Financial Base Packet。"
+
+policy:
+  allow_implicit_invocation: true

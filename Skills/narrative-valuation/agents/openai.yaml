@@ -1,0 +1,7 @@
+interface:
+  display_name: "公司叙事与终局估值"
+  short_description: "讲清公司怎样赚钱、核心业绩变量、预期差与价格隐含终局"
+  default_prompt: "使用 $narrative-valuation 通俗而严谨地分析这家公司怎样赚钱、未来两年核心变量、独立终局和当前价格隐含条件。"
+
+policy:
+  allow_implicit_invocation: true

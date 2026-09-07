@@ -1,0 +1,7 @@
+interface:
+  display_name: "Company Alpha Analyzer"
+  short_description: "Assess company advantages and value capture potential"
+  default_prompt: "Use $investment-company-alpha to determine whether a company can capture industry value."
+
+policy:
+  allow_implicit_invocation: false

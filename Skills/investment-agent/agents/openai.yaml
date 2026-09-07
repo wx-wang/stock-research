@@ -1,0 +1,7 @@
+interface:
+  display_name: "Investment Agent"
+  short_description: "Orchestrate personal investment research and thesis updates"
+  default_prompt: "Use $investment-agent to run my personal Investment Decision Framework on an A-share or Hong Kong stock."
+
+policy:
+  allow_implicit_invocation: false

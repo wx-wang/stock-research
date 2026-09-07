@@ -1,0 +1,49 @@
+# macOS
+.DS_Store
+
+# Python 缓存
+__pycache__/
+*.pyc
+
+# 大体积二进制/压缩包（已有解压副本）
+*.tar.gz
+
+# 知识库向量索引与中间数据（可重建，体积大）
+broker-news/*/index/
+broker-news/*/data.json
+broker-news/.pull_progress.log
+research_data/.tmp_raw/
+
+# 前端工程构建产物与依赖
+node_modules/
+dist/
+.wrangler/
+.vinext/
+research-workbench/.env*
+
+# MCP 配置含 Tushare token，禁止入库
+.mcp.json
+
+# 研究成果与原始/中间数据（仅保留可复用脚本）
+研究输出/**
+research_data/*
+!research_data/scripts/
+research_data/scripts/*
+!research_data/scripts/*.py
+
+# 券商新闻抓取结果（仅保留可复用工具）
+broker-news/*
+!broker-news/tools/
+broker-news/tools/*
+!broker-news/tools/*.py
+
+# 个人持仓状态不进入版本库
+portfolio/positions.json
+
+# 下载资料与第三方工具副本
+*.pdf
+*.docx
+Hyper-Extract-main/
+
+# 独立的研究工作台仓库及其运行状态
+research-workbench/

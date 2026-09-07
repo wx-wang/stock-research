@@ -1,0 +1,7 @@
+interface:
+  display_name: "行业认知地图"
+  short_description: "快速看懂行业生意、供需状态、叙事变化、利润传导与长期终局"
+  default_prompt: "使用 $industry-understanding 通俗而严谨地讲清这个行业，并分析当前供需状态、叙事变化和长期终局。"
+
+policy:
+  allow_implicit_invocation: true
