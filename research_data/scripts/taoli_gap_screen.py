@@ -10,7 +10,8 @@
   L3 断层层   公告日次一交易日 跳空≥gap_min%、量≥前5日均量×vol_min%、缺口至今未回补
   L4 趋势层   收盘>MA50>MA200（Stage 2 简化）
 输出: research_data/screen/taoli_gap_<date>.csv + meta.json，stdout 打印分层结果。
-仅为研究入口，不构成买卖结论。
+状态：Candidate / Sandbox。RPS、跳空、成交量与均线阈值尚未被当前体系批准为正式择时规则；
+仅用于生成可回测假设和研究入口，不进入默认研究链路，也不构成买卖、仓位或补涨结论。
 """
 import argparse
 import csv

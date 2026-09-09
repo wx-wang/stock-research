@@ -47,3 +47,6 @@ Hyper-Extract-main/
 
 # 独立的研究工作台仓库及其运行状态
 research-workbench/
+
+# 其他模型/Agent 的隔离研究输出区
+glm/

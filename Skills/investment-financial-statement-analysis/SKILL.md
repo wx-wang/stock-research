@@ -18,6 +18,10 @@ For a named company, first confirm the listed entity and ticker with Tushare `st
 
 Use the company's filing and notes when the analysis depends on accounting policy, segment definitions, audit opinion, impairments, related parties, commitments, or management explanations. Use Tushare as the default structured source: `income`, `balancesheet`, `cashflow`, `fina_indicator`, `fina_mainbz`, `forecast`, `express`, and `disclosure_date`; use `daily`, `adj_factor`, and `daily_basic` only when price, shares, or market value are needed for the downstream valuation date. Use `report_rc` for a dated sell-side forecast set and label its broker/sample coverage; it is not automatically complete consensus. Treat broker reports, Knowledge Star, IMA, and media as expectation or narrative evidence, not proof of reported accounting facts.
 
+Classify at the **atomic-claim level**, not the document level: `Source → Claim → Claim Class → Evidence Role → Source Lineage → Confidence → Verification/Falsifier`. A filing may contain a reported fact, a management explanation, and forward guidance; keep them separate. For decision-relevant claims, use `Fact / Inference-Hypothesis / Market Narrative-Expectation / Valuation View-Model Output` alongside the existing Chinese evidence labels. Assign `Evidence Confidence: High / Medium / Low` from directness, proximity to the original event, scope and accounting-definition completeness, timeliness, independent corroboration, and unresolved conflicts. Do not score mechanically; low-confidence evidence may generate an investigation or hypothesis but cannot by itself verify a key accounting fact.
+
+Trace `Original Source → Secondary Source → Repost / Commentary`. Tushare fields reproduced from a company filing and the filing itself are one lineage, not two independent confirmations. Record discrepancies between the structured field and filing instead of choosing silently.
+
 ## Operating Modes
 
 ### Standalone Financial-Report Review
@@ -41,7 +45,8 @@ Use after a new filing to compare actual results with the prior filing, manageme
 5. Review audit opinion, internal-control opinion, accounting-policy or estimate changes, restatements, consolidation-scope changes, and management explanations for annual reports or whenever relevant.
 6. Compare actual results with a clearly identified baseline. Keep company guidance, explicit consensus, broker forecast range, historical trend, peer benchmark, and price-implied expectations distinct.
 7. Flag anomalies using both materiality and context. A percentage threshold alone is not evidence of risk; test absolute amount, base effect, seasonality, accounting definition, company history, and named peers.
-8. Convert decision-relevant observations into the user's evidence labels: `事实 / 变化 / 推断 / 关键假设 / 待验证假设 / 未知或数据缺口`. Attach source, period, publication date, units, baseline, and next verification where available.
+8. Internally classify decision-relevant observations as `事实 / 变化 / 推断 / 关键假设 / 待验证假设 / 未知或数据缺口`, with source, period, publication date, units, baseline, and next verification. Do not expose these fields mechanically in the user-facing report.
+9. For each conclusion that compares the company with its industry, test competing explanations: industry Beta, company Alpha, segment mix, consolidation/restatement, and base effects. A company's reported change directly proves only that company's result; do not generalize it into an industry fact without independent industry, peer, customer, or supplier evidence.
 
 ## Required Outputs
 
@@ -60,8 +65,11 @@ Return:
 - Actual results versus identified guidance or expectation baseline;
 - Verification metrics, next reporting window, missing inputs, and human judgment items;
 - `Financial Base Packet` for downstream use, including the normalized `C0` bridge and fully diluted basis;
+- an internal claim-level evidence register for decisive facts and inferences, including claim class, evidence role, confidence, root source/lineage, independent-chain count, conflicts, and next verification; store it in the `Financial Base Packet`, `research_data/`, or an optional audit appendix rather than the default report;
 - a valuation-basis diagnosis that preserves normalized profit even when current shareholder cash flow is negative, plus the dated profit-to-cash conversion path and failure conditions;
 - explicit conclusion boundary and uncompleted investment stages.
+
+The default user-facing report is a decision-oriented summary, not an audit export. It should lead with the current financial judgment, then show only the 3–5 most important figures or changes, their operating/cash-flow meaning, the largest uncertainty, and the next verification metrics. Do not print `Claim ID`, `Evidence Type/Tier`, `Confidence`, `Lineage ID`, independent-chain counts, or a full evidence register unless the user explicitly requests an audit. If evidence quality materially limits a conclusion, translate the limitation into plain language, for example: “回款改善目前只见于单季，尚缺后续报告确认。”
 
 When data are absent, write `未知或数据缺口`; do not manufacture values, silently use an industry average, or infer a note disclosure from a summarized database field.
 
@@ -78,5 +86,6 @@ Do not:
 - call industry growth or a good financial ratio Company Alpha without named-peer and causal evidence;
 - call an earnings beat a durable variant without a market-expectation baseline and downstream analysis;
 - create a numerical scorecard, assign narrative probabilities, or convert accounting observations directly into an investment action.
+- count a database copy, media quotation, or repeated broker citation of the same filing as independent corroboration.
 
 Archive a standalone written result under `研究输出/个股研究/<公司名>/<YYYYMMDD>_<公司>_财报分析_<报告期>.md`. Never use the complete `Investment Memo` filename for this output.

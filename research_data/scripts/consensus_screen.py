@@ -10,7 +10,9 @@
   ratio ≥ 1.5 → 深度分歧（市场深度怀疑共识，隐含 r 高）→ 预期差候选，去看市场对还是共识对
   ratio ≤ 0.7 → 叙事透支（价格超过"共识兑现并永续"的价值，隐含 r 极低）→ 需独立天花板证据
 输出：research_data/screen/consensus_screen_<date>.csv + stdout 两端 top N。
-旗子只表示"分歧显著、值得去查"，不构成低估/高估或买卖结论。
+状态：Candidate / Sandbox。固定 k、r 与卖方利润永续只是未经公司现金流桥验证的筛选假设，
+不属于当前默认叙事估值模型。旗子只表示"分歧显著、值得去查"，不构成市场共识、
+低估/高估或买卖结论；正式结论必须另做 Pass A、Pass B 与同口径现金流比较。
 """
 import argparse
 import csv
@@ -214,7 +216,8 @@ def main():
     for r in trans[:a.top]:
         print(f"{r['code']:<10}{r['name']:<8}{r['industry']:<10}{r['mcap_yi']:>7}{r['np28_yi']:>8}{r['n_orgs28']:>4}{r['V_over_mcap']:>7}{r['implied_r'] or '—':>7} {r['recent_rev28']}")
 
-    json.dump({'date': end.isoformat(), 'params': {'k': a.k, 'r': a.r, 'window_days': a.window_days, 'min_orgs': a.min_orgs},
+    json.dump({'date': end.isoformat(), 'method_status': 'candidate_sandbox_not_formal_valuation',
+               'params': {'k': a.k, 'r': a.r, 'window_days': a.window_days, 'min_orgs': a.min_orgs},
                'n_rows': len(rows), 'n_stocks': len(out_rows), 'n_deep': len(deep), 'n_transcendent': len(trans)},
               open(os.path.join(a.out, f'consensus_screen_{end.strftime("%Y%m%d")}_meta.json'), 'w'), ensure_ascii=False, indent=1)
 

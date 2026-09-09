@@ -55,6 +55,8 @@ def present_value(
         raise ValueError("basis must be cash-flow or profit")
     _conversion_rate("current_cash_conversion", current_cash_conversion)
     _conversion_rate("terminal_cash_conversion", terminal_cash_conversion)
+    if basis == "profit" and current_cash_conversion == 0 and terminal_cash_conversion == 0:
+        raise ValueError("profit basis requires a positive cash-conversion rate somewhere on the path")
     if basis == "cash-flow" and (
         current_cash_conversion != 1.0 or terminal_cash_conversion != 1.0
     ):
