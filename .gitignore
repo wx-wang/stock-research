@@ -23,6 +23,13 @@ research-workbench/.env*
 
 # MCP 配置含 Tushare token，禁止入库
 .mcp.json
+.env
+.env.*
+!.env.example
+*.pem
+*.key
+.codex/
+.agents/
 
 # 研究成果与原始/中间数据（仅保留可复用脚本）
 研究输出/**

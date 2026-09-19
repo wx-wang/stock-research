@@ -1,7 +1,0 @@
-interface:
-  display_name: "Investment Thesis Monitor"
-  short_description: "Monitor investment theses and route necessary reanalysis"
-  default_prompt: "Use $investment-thesis-monitor to update an existing investment thesis with new facts."
-
-policy:
-  allow_implicit_invocation: false

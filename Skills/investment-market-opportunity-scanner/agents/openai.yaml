@@ -1,7 +1,0 @@
-interface:
-  display_name: "Market & Opportunity Scanner"
-  short_description: "Assess market regime and screen investment opportunities"
-  default_prompt: "Use $investment-market-opportunity-scanner to assess the market regime and identify research-worthy industries or companies."
-
-policy:
-  allow_implicit_invocation: false

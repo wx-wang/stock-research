@@ -1,7 +1,0 @@
-interface:
-  display_name: "Industry Value Chain Analyzer"
-  short_description: "Analyze industry trends, value chains, and profit pools"
-  default_prompt: "Use $investment-industry-value-chain to test an industry thesis and locate the profit pool."
-
-policy:
-  allow_implicit_invocation: false

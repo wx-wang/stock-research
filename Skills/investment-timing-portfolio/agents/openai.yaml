@@ -1,7 +1,0 @@
-interface:
-  display_name: "Timing & Portfolio Manager"
-  short_description: "Assess trend confirmation and recommend investment state"
-  default_prompt: "Use $investment-timing-portfolio to assess trend confirmation and recommend an investment state."
-
-policy:
-  allow_implicit_invocation: false

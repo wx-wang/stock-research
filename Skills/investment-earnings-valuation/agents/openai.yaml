@@ -1,7 +1,0 @@
-interface:
-  display_name: "Earnings & Valuation Analyzer"
-  short_description: "Analyze earnings expectations, valuation, and risk reward"
-  default_prompt: "Use $investment-earnings-valuation to test earnings expectations, valuation, liquidity, and risk reward."
-
-policy:
-  allow_implicit_invocation: false
