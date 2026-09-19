@@ -31,12 +31,16 @@ research-workbench/.env*
 .codex/
 .agents/
 
-# 研究成果与原始/中间数据（仅保留可复用脚本）
-研究输出/**
+# 原始/中间数据（仅保留可复用脚本）
+# 研究输出允许进入 Git，并作为 GitHub Pages 的内容源。
 research_data/*
 !research_data/scripts/
 research_data/scripts/*
 !research_data/scripts/*.py
+
+# GitHub Pages 本地构建中间目录
+.site-src/
+site-output/
 
 # 券商新闻抓取结果（仅保留可复用工具）
 broker-news/*

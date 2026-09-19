@@ -37,7 +37,21 @@ python3 scripts/link_core_skills.py --check
 
 ## 版本管理范围
 
-GitHub 保存技能、研究规则、说明和可复用代码。沿用本项目原有隔离方式：`研究输出/`、`research_data/`、下载的第三方资料、凭据和个人配置默认只留本地，不随推送上传。规则中提到的原始测试记录和本机归档记录因此可能仅在原电脑存在，其他环境使用公开的测试摘要并重新核验。
+GitHub 保存技能、研究规则、研究输出、说明和可复用代码。`研究输出/` 会随推送上传，并作为 GitHub Pages 研究站的内容源；`research_data/`、下载的第三方资料、凭据、个人持仓和个人配置仍默认只留本地。推送前需确认研究报告不含凭据、未授权的第三方原文或不应公开的个人信息。
+
+## 研究阅读站
+
+本仓库使用 MkDocs Material 和 GitHub Actions 把 `研究输出/` 自动生成 GitHub Pages。首次启用时，在 GitHub 仓库的 **Settings → Pages → Build and deployment** 中将 **Source** 设为 **GitHub Actions**；之后每次向 `main` 推送报告或站点配置都会自动更新。
+
+本地预览：
+
+```sh
+python3 -m pip install -r requirements-pages.txt
+python3 scripts/prepare_pages.py
+mkdocs serve
+```
+
+站点构建中间目录 `.site-src/` 和输出目录 `site-output/` 不进入 Git。
 
 旧技能备份也位于本机仓库之外，不重新启用。需要分享某份研究成果时，单独检查并明确选择该文件。
 

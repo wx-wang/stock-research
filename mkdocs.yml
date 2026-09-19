@@ -1,0 +1,74 @@
+site_name: 投资研究档案
+site_description: 以产业、财务与估值证据为核心的中文投资研究库
+site_url: https://wx-wang.github.io/stock-research/
+repo_url: https://github.com/wx-wang/stock-research
+repo_name: wx-wang/stock-research
+docs_dir: .site-src
+site_dir: site-output
+use_directory_urls: true
+
+theme:
+  name: material
+  language: zh
+  custom_dir: site_theme/overrides
+  favicon: assets/images/favicon.svg
+  logo: assets/images/mark.svg
+  icon:
+    repo: fontawesome/brands/github
+  features:
+    - navigation.sections
+    - navigation.indexes
+    - navigation.top
+    - navigation.footer
+    - search.suggest
+    - search.highlight
+    - search.share
+    - content.code.copy
+  palette:
+    - media: "(prefers-color-scheme: light)"
+      scheme: archive-light
+      toggle:
+        icon: material/weather-night
+        name: 切换至深色模式
+    - media: "(prefers-color-scheme: dark)"
+      scheme: archive-dark
+      toggle:
+        icon: material/weather-sunny
+        name: 切换至浅色模式
+
+plugins:
+  - search:
+      lang:
+        - zh
+        - en
+
+markdown_extensions:
+  - admonition
+  - attr_list
+  - md_in_html
+  - tables
+  - toc:
+      permalink: true
+      toc_depth: 3
+  - pymdownx.details
+  - pymdownx.highlight:
+      anchor_linenums: true
+  - pymdownx.inlinehilite
+  - pymdownx.superfences
+  - pymdownx.tabbed:
+      alternate_style: true
+
+extra_css:
+  - assets/stylesheets/extra.css
+
+extra_javascript:
+  - assets/javascripts/reading-progress.js
+
+extra:
+  generator: false
+  social:
+    - icon: fontawesome/brands/github
+      link: https://github.com/wx-wang/stock-research
+      name: GitHub 仓库
+
+copyright: 研究结论仅供研究参考，不构成证券推荐或交易建议。
