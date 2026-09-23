@@ -3,6 +3,7 @@
 
 from __future__ import annotations
 
+import os
 import re
 import shutil
 from dataclasses import dataclass
@@ -16,6 +17,7 @@ CONTENT_ROOT = ROOT / "site_content"
 BUILD_ROOT = ROOT / ".site-src"
 IGNORED_NAMES = {".DS_Store"}
 DATE_PATTERN = re.compile(r"^(\d{8})[_-]")
+MARKDOWN_LINK = re.compile(r"\[([^\]]+)\]\((<[^>]+>|[^)]+)\)")
 
 
 @dataclass(frozen=True)
@@ -64,7 +66,28 @@ def collect_reports() -> list[Report]:
     return reports
 
 
-def copy_tree(source: Path, destination: Path) -> None:
+def public_markdown(text: str, source_path: Path) -> str:
+    """Keep published links inside the site; label references to local-only files."""
+    def replace(match: re.Match[str]) -> str:
+        label, raw = match.groups()
+        link = raw[1:-1] if raw.startswith("<") and raw.endswith(">") else raw
+        if link.startswith(("http://", "https://", "#", "mailto:")):
+            return match.group(0)
+        if not (link.startswith("/Users/") or link.startswith("file://") or "research_data/" in link):
+            return match.group(0)
+        target = Path(link.removeprefix("file://"))
+        if not target.is_absolute():
+            target = source_path.parent / target
+        target = target.resolve()
+        if target.is_file() and target.is_relative_to(OUTPUT_ROOT):
+            relative = Path(os.path.relpath(target, source_path.parent))
+            return f"[{label}]({markdown_link(relative)})"
+        return f"{label}（本地资料）"
+
+    return MARKDOWN_LINK.sub(replace, text)
+
+
+def copy_tree(source: Path, destination: Path, rewrite_local_links: bool = False) -> None:
     if not source.exists():
         return
     for path in source.rglob("*"):
@@ -78,7 +101,10 @@ def copy_tree(source: Path, destination: Path) -> None:
             target.mkdir(parents=True, exist_ok=True)
         elif path.is_file():
             target.parent.mkdir(parents=True, exist_ok=True)
-            shutil.copy2(path, target)
+            if rewrite_local_links and path.suffix == ".md":
+                target.write_text(public_markdown(path.read_text(encoding="utf-8"), path), encoding="utf-8")
+            elif not rewrite_local_links:
+                shutil.copy2(path, target)
 
 
 def markdown_link(path: Path) -> str:
@@ -183,7 +209,7 @@ def main() -> None:
     BUILD_ROOT.mkdir(parents=True)
 
     copy_tree(CONTENT_ROOT, BUILD_ROOT)
-    copy_tree(OUTPUT_ROOT, BUILD_ROOT / "研究输出")
+    copy_tree(OUTPUT_ROOT, BUILD_ROOT / "研究输出", rewrite_local_links=True)
     reports = collect_reports()
     (BUILD_ROOT / "index.md").write_text(build_homepage(reports), encoding="utf-8")
     write_directory_indexes(reports)
